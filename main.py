@@ -53,12 +53,13 @@ MAX_CHARS = 200
 
 def main() -> None:
     text = ENTRY
-    if not 1 <= len(text) <= MAX_CHARS:
-        raise SystemExit(
-            "entry must be 1-200 characters, got %d" % len(text)
-        )
     if not text.strip():
-        raise SystemExit("entry must not be only whitespace")
+        raise SystemExit("entry must not be blank (whitespace only)")
+    if len(text) > MAX_CHARS:
+        raise SystemExit(
+            "entry exceeds the %d-character limit, got %d characters"
+            % (MAX_CHARS, len(text))
+        )
 
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
